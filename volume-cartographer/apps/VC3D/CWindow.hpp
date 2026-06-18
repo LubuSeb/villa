@@ -360,6 +360,8 @@ private:
     QShortcut* fZoomInShortcut;
     QShortcut* fZoomOutShortcut;
     QShortcut* fResetViewShortcut;
+    QShortcut* fRotateSurfaceViewShortcut;
+    QShortcut* fFlipSurfaceViewShortcut;
     QShortcut* fOpenLasagnaWorkspaceShortcut{nullptr};
     QShortcut* fRepeatLasagnaActionShortcut{nullptr};
 

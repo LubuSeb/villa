@@ -60,6 +60,8 @@ public:
         float scale = 1.0f;
         float zOffset = 0.0f;
         cv::Vec3f zOffsetWorldDir{0, 0, 0};
+        int surfaceViewRotationQuarterTurns = 0;
+        bool surfaceViewFlippedHorizontally = false;
     };
     struct SceneVolumeSample {
         cv::Vec3f position{0, 0, 0};
@@ -89,6 +91,9 @@ public:
     void adjustSurfaceOffset(float delta) override;
     void resetSurfaceOffsets() override;
     void fitSurfaceInView() override;
+    bool rotateSurfaceViewClockwise() override;
+    bool flipSurfaceViewHorizontally() override;
+    bool resetSurfaceViewOrientation() override;
     void notifyInteractiveViewChange(double motionPx);
 
     std::string surfName() const override { return _surfName; }
@@ -275,6 +280,9 @@ private:
     void updateContentBounds();
     QPointF surfaceToScene(float surfX, float surfY) const;
     cv::Vec2f sceneToSurface(const QPointF& scenePos) const;
+    QPointF surfaceDeltaToViewDelta(float surfaceDx, float surfaceDy) const;
+    cv::Vec2f viewDeltaToSurfaceDelta(const QPointF& viewDelta) const;
+    void invalidateSurfaceViewOrientation();
     void prefetchPlaneHalo(const cv::Vec3f& origin,
                            const cv::Vec3f& vxStep,
                            const cv::Vec3f& vyStep,
@@ -351,7 +359,7 @@ private:
     // when these change; a data-only refresh lets the in-flight frame finish and
     // display instead of being thrown away (cuts discarded renders ~19%->5%).
     std::size_t _inFlightParamsKey = 0;
-    std::size_t viewParamsKey() const;
+    std::size_t viewParamsKey(const Surface* surface, int startLevel) const;
     cv::Mat_<uint8_t> _values;
     cv::Mat_<uint8_t> _coverage;
     std::shared_ptr<GeneratedSurfaceCache> _genSurfaceCache;
@@ -377,6 +385,8 @@ private:
     float _camSurfY = 0.0f;
     float _camScale = 1.0f;
     cv::Vec3f _zOffWorldDir{0, 0, 0};
+    int _surfaceViewRotationQuarterTurns = 0;
+    bool _surfaceViewFlippedHorizontally = false;
 
     float _windowLow = 0.0f;
     float _windowHigh = 255.0f;

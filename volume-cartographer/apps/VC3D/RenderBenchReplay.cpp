@@ -67,6 +67,10 @@ bool RenderBenchReplay::load(const QString& path)
             kf.zDirY = static_cast<float>(dir[1].toDouble());
             kf.zDirZ = static_cast<float>(dir[2].toDouble());
         }
+        kf.surfaceViewRotationQuarterTurns =
+            o["surfaceViewRotationQuarterTurns"].toInt(0);
+        kf.surfaceViewFlippedHorizontally =
+            o["surfaceViewFlippedHorizontally"].toBool(false);
         kf.dsScaleIdx = o["dsScaleIdx"].toInt();
         _keyframes.push_back(kf);
     }
@@ -218,6 +222,8 @@ void RenderBenchReplay::run(CWindow& window)
         cs.scale = kf.scale;
         cs.zOffset = kf.zOffset;
         cs.zOffsetWorldDir = {kf.zDirX, kf.zDirY, kf.zDirZ};
+        cs.surfaceViewRotationQuarterTurns = kf.surfaceViewRotationQuarterTurns;
+        cs.surfaceViewFlippedHorizontally = kf.surfaceViewFlippedHorizontally;
         if (timed) {
             Logger()->info("[vc3d-replay] frame={} begin scale={:.4f} zOff={:.3f}",
                            i, kf.scale, kf.zOffset);

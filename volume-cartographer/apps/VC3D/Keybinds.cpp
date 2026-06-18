@@ -113,6 +113,22 @@ const ShortcutDef ResetView{
     "m",
     QKeySequence::Open
 };
+const ShortcutDef RotateSurfaceView{
+    "rotate_surface_view",
+    kSectionViewerControls,
+    "Rotate active surface view clockwise",
+    ShortcutKind::Text,
+    "Ctrl+R",
+    QKeySequence::Open
+};
+const ShortcutDef FlipSurfaceViewHorizontal{
+    "flip_surface_view_horizontal",
+    kSectionViewerControls,
+    "Flip active surface view horizontally",
+    ShortcutKind::Text,
+    "Ctrl+F",
+    QKeySequence::Open
+};
 const ShortcutDef WorldOffsetZPos{
     "world_offset_z_pos",
     kSectionViewerControls,
@@ -480,6 +496,8 @@ QString buildKeybindsHelpText()
         { kSectionViewerControls, shortcuts::ZoomIn.description, HelpKeyType::Shortcut, &shortcuts::ZoomIn, nullptr, nullptr },
         { kSectionViewerControls, shortcuts::ZoomOut.description, HelpKeyType::Shortcut, &shortcuts::ZoomOut, nullptr, nullptr },
         { kSectionViewerControls, shortcuts::ResetView.description, HelpKeyType::Shortcut, &shortcuts::ResetView, nullptr, nullptr },
+        { kSectionViewerControls, shortcuts::RotateSurfaceView.description, HelpKeyType::Shortcut, &shortcuts::RotateSurfaceView, nullptr, nullptr },
+        { kSectionViewerControls, shortcuts::FlipSurfaceViewHorizontal.description, HelpKeyType::Shortcut, &shortcuts::FlipSurfaceViewHorizontal, nullptr, nullptr },
         { kSectionViewerControls, shortcuts::WorldOffsetZPos.description, HelpKeyType::Shortcut, &shortcuts::WorldOffsetZPos, nullptr, nullptr },
         { kSectionViewerControls, shortcuts::WorldOffsetZNeg.description, HelpKeyType::Shortcut, &shortcuts::WorldOffsetZNeg, nullptr, nullptr },
         { kSectionViewerControls, "Pan view", HelpKeyType::Literal, nullptr, nullptr, "Arrow Keys" },
